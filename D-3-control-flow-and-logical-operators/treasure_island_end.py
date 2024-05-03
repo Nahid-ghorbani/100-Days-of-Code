@@ -10,15 +10,15 @@ MM88MMM 8b,dPPYba,  ,adPPYba, ,adPPYYba, ,adPPYba, 88       88 8b,dPPYba,
 
 print('Welcome to Treasure Island.\nYour mission is to find the treasure.')
 
-choice_one = input("You are on at a cross road, where do you want to go? \"left\" or \"right\"")
-choice_two = input("You have come to a lake. There is an island in the middle of lake. Type \"wait\" for wait for a boat. type \"swim\" to swim across.")
-choice_three = input("You find a house in top of island. type \"inside\" to search in house or \"garage\" to check the garage or \"stares\" to check second level.")
+choice_one = input("You are at a cross road, where do you want to go? \"left\" or \"right\". \n")
+choice_two = input("You have come to a lake. There is an island in the middle of lake. Type \"wait\" to wait for a boat. type \"swim\" to swim across.\n")
+choice_three = input("You find a house in top of island. type \"inside\" to search in house or \"garage\" to check the garage or \"stairs\" to check second level.\n")
 
 if choice_one == "left":
     if choice_two == "wait":
-        if choice_three == "inside" or "garage":
+        if choice_three == "inside" or choice_three == "garage":
             print('ops! you got shot! Game Over!')
-        elif choice_three == "stares":
+        elif choice_three == "stairs":
             print('You Got It. What about another round?')
     else:
         print('You fell into a n hole! Game Over!')
