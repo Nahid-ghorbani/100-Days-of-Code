@@ -6,16 +6,12 @@ shift = int(input("Type the shift number:\n"))
 alphabet_len = len(alphabet)
 
 def encrypt(original_text, shift_amount):
-    encrypted_text = ''
+    cipher_text = ''
     for letter in original_text:
-        letter_index = alphabet.index(letter)
-        new_index = letter_index + shift_amount
-        if new_index > alphabet_len:
-            new_index -= alphabet_len
-        new_letter = alphabet[new_index]
-        encrypted_text += new_letter
-
-    print(encrypted_text)
+        shifted_position = alphabet.index(letter) + shift_amount
+        shifted_position %= alphabet_len #we use % so basically there is no limit for shift number
+        cipher_text += alphabet[shifted_position]
+    print(f"Here is the encoded result: {cipher_text}")
 
 if direction == "encode":
     encrypt(text, shift)
