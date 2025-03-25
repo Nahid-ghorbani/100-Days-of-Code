@@ -13,7 +13,18 @@ def encrypt(original_text, shift_amount):
         cipher_text += alphabet[shifted_position]
     print(f"Here is the encoded result: {cipher_text}")
 
-if direction == "encode":
-    encrypt(text, shift)
 
+def decrypt(original_text, shift_amount):
+    cipher_text = ""
+    for letter in original_text:
+        original_position = alphabet.index(letter) - shift_amount % alphabet_len
+        cipher_text += alphabet[original_position]
+    print(f"Here is the decoded result: {cipher_text}")
 
+def caesar():
+    if direction == "encode":
+        encrypt(text, shift)
+    elif direction =="decode":
+        decrypt(text, shift)
+
+caesar()
