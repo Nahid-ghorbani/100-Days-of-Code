@@ -21,25 +21,28 @@ operation_dictionary = {
 }
 
 print(logo)
-quite_app = False
-first_number = 0
-while not quite_app:
-    if first_number == 0:
-        first_number = float(input("what's the first number?: "))
-    for key in operation_dictionary:
-        print(key)
-    operation = input("Pick an operation: ")
-    second_number = float(input("What's the next number?: "))
 
-    calculated_number = operation_dictionary[operation](first_number, second_number)
-    print(f"{first_number} {operation} {second_number} = {calculated_number}")
+def calculator():
+    continue_calculation = True
+    first_number = float(input("what's the first number?: "))
+    while continue_calculation:
+        for key in operation_dictionary:
+            print(key)
+        operation = input("Pick an operation: ")
+        second_number = float(input("What's the next number?: "))
 
-    continue_calculation = input(f"Type 'y' to continue calculating with {calculated_number}, or type 'n' to start a new calculation: " ).lower()
+        calculated_number = operation_dictionary[operation](first_number, second_number)
+        print(f"{first_number} {operation} {second_number} = {calculated_number}")
 
-    if continue_calculation == "y":
-        first_number = calculated_number
-    elif continue_calculation == "n":
-        first_number = 0
+        continue_choice = input(f"Type 'y' to continue calculating with {calculated_number}, or type 'n' to start a new calculation: " ).lower()
 
+        if continue_choice == "y":
+            first_number = calculated_number
+        elif continue_choice == "n":
+            continue_calculation = False
+            print("\n" * 100)
+            print(logo)
+            calculator()
 
+calculator()
 
