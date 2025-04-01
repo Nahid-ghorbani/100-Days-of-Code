@@ -5,11 +5,13 @@ profit = 0.0
 
 def check_resources(selected_order):
     """ check ingredients for each order."""
+    enough_ingredients = True
     order_ingredients = MENU[selected_order]["ingredients"]
     for ingredient in order_ingredients:
         if order_ingredients[ingredient] > resources[ingredient]:
             print(f"Sorry there is not enough {ingredient}.")
-            return False
+            enough_ingredients = False
+    return enough_ingredients
 
 def report_ingredients(resources_ingredients, money):
     print(f"Water: {resources_ingredients["water"]}ml")
@@ -17,36 +19,39 @@ def report_ingredients(resources_ingredients, money):
     print(f"Coffee: {resources_ingredients["coffee"]}g")
     print(f"Money: ${money}")
 
+def calculate_received_money():
+    quarters = int(input("quarters: "))
+    dimes = int(input("dimes: "))
+    nickles = int(input("nickles: "))
+    pennies= int(input("pennies: "))
+
+    received_money = (quarters * 0.25) + (dimes * 0.1) + (nickles * 0.05) + (pennies * 0.01)
+    return round(received_money, 2)
 
 
-# TODO: 1-ask user what's their order and repeat after finishing the process
-order = input("What would you like? (espresso/latte/cappuccino): ").lower()
+while not turn_off:
+    order = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
-# TODO: 2- type off on order input to turn off the machine
-if order == "off":
-    turn_off = True
+    if order == "off":
+        turn_off = True
 
-# TODO: 3- type report to print all resources and mony
-elif order == "report":
-    report_ingredients(resources, profit)
+    elif order == "report":
+        report_ingredients(resources, profit)
 
-# TODO: 4- check resources after define the order, if there is enough resources make the order, else 
-# print “Sorry there is not enough water.”
-else:
-    check_resources(order)
-        
+    elif check_resources(order):            
+        received_money = calculate_received_money()
+        order_cost = MENU[order]["cost"]
 
+        if order_cost > received_money:
+            print("Sorry that's not enough money. Money refunded.")
+        else:
+            profit += order_cost
+            if order_cost < received_money:
+                change = received_money - order_cost
+                change = round(change, 2)
+                print(f"Here is ${change} dollars in change.")
+            
+            for ingredient in MENU[order]["ingredients"]:
+                resources[ingredient] -= MENU[order]["ingredients"][ingredient]
 
-
-
-
-# TODO: 5- prompt user to insert coins, a input for each coin and calculate all received mony.
-
-# TODO: 6- compare received money and order cost, if user payed less print: “Sorry that's not enough money. Money refunded.”
-# else add money to profit, and if user payed more money, offer change : “Here is $2.45 dollars in change.”, the change rounded to
-# 2 decimal.
-
-# TODO: 7- if everything done well, the integrated should deducted from resources
-
-
-# TODO: 8- if the order was done, print: “Here is your latte. Enjoy!”
+            print(f"Here is your {order}. Enjoy!")
