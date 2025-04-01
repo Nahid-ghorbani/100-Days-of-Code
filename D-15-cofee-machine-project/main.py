@@ -5,13 +5,12 @@ profit = 0.0
 
 def check_resources(selected_order):
     """ check ingredients for each order."""
-    enough_ingredients = True
     order_ingredients = MENU[selected_order]["ingredients"]
     for ingredient in order_ingredients:
         if order_ingredients[ingredient] > resources[ingredient]:
             print(f"Sorry there is not enough {ingredient}.")
-            enough_ingredients = False
-    return enough_ingredients
+            return False
+    return True
 
 def report_ingredients(resources_ingredients, money):
     print(f"Water: {resources_ingredients["water"]}ml")
